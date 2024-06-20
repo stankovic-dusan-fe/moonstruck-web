@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import "@splidejs/splide/css";
+
+* {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+h2,
+h3,
+h4,
+h6 {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+h5,
+p,
+span,
+li {
+  font-family: "Space Mono", monospace;
+}
+
+h1 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 220px;
+  line-height: auto;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #251f21;
+}
+
+h2 {
+  font-size: 200px;
+  line-height: auto;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: 80px;
+  line-height: 96px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h4 {
+  font-size: 48px;
+  line-height: 64px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h5 {
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 400;
+}
+
+h6 {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  color: #fd5001;
+  text-transform: uppercase;
+}
+
+p {
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 400;
+  text-transform: none;
+}
+
+span {
+  font-size: 20px;
+  line-height: 28px;
+  text-transform: uppercase;
+  color: #6a6a6a;
+}
+
+li {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
