@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "build-test": "vite build  && netlify deploy --prod",
     "preview": "vite preview"
@@ -12,7 +12,8 @@
   "dependencies": {
     "@splidejs/vue-splide": "^0.6.12",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-carousel": "^0.3.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

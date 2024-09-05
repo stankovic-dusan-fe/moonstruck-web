@@ -4,7 +4,7 @@
       :src="`/images/icons/${icon}.svg`"
       alt="protocol-icon"
     />
-    <h6>{{ title }}></h6>
+    <h6>{{ title }}</h6>
     <p>{{ desc }}</p>
   </div>
 </template>
@@ -15,10 +15,11 @@ const props = defineProps(["icon", "title", "desc"]);
 
 <style lang="scss" scoped>
 .development-card {
-  width: 356px;
-  height: fit-content;
-  background-color: rgba(37, 31, 33, 0.5);
+  max-width: 336px;
   padding: 24px;
+  height: fit-content;
+  box-sizing: border-box;
+  background-color: rgba(37, 31, 33, 0.5);
   border-radius: 24px;
   display: flex;
   flex-direction: column;
@@ -33,6 +34,17 @@ const props = defineProps(["icon", "title", "desc"]);
   p {
     font-size: 16px;
     line-height: 24px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .development-card {
+    max-width: 100%;
+
+    h6 {
+      font-size: 24px;
+      line-height: 32px;
+    }
   }
 }
 </style>

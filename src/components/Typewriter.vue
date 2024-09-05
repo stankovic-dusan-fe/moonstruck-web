@@ -1,5 +1,5 @@
 <template>
-  <span class="typed-text">{{ text }}</span>
+  <p class="typed-text">{{ text }}</p>
 </template>
 
 <script setup>
