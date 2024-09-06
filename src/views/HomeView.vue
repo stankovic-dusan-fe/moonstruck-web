@@ -1,5 +1,62 @@
 <template>
-  <div class="fullscreen-container hero-section maxwidth-container">
+  <div class="maxwidth-container nav-bar">
+    <nav
+      class="navbar"
+      :class="{ active: menuActive }"
+    >
+      <div
+        class="menu-btn"
+        :class="{ active: menuActive }"
+        @click="toggleMenu"
+      >
+        <p>Menu</p>
+      </div>
+      <ul
+        class="nav-list"
+        :class="{ active: menuActive }"
+      >
+        <div class="menu-text">
+          <span @click="toggleMenu">MENU</span>
+          <span>...</span>
+        </div>
+        <li
+          class="nav-item active"
+          @click="scrollToClass('hero-section')"
+        >
+          START
+        </li>
+        <li
+          class="nav-item"
+          @click="scrollToClass('development-section')"
+        >
+          TECHNOLOGY
+        </li>
+        <li
+          class="nav-item"
+          @click="scrollToClass('services-section')"
+        >
+          WHAT WE DO
+        </li>
+
+        <li
+          class="nav-item"
+          @click="scrollToClass('projects-section')"
+        >
+          PROJECTS
+        </li>
+        <li class="nav-item">
+          <RouterLink to="/web25">WEB 2.5</RouterLink>
+        </li>
+        <li
+          class="nav-item"
+          @click="scrollToClass('contact-section')"
+        >
+          CONTACT
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="maxwidth-container fullscreen-container hero-section">
     <div class="hero-text">
       <p>On a mission</p>
       <h2>Moonstruck</h2>
@@ -31,7 +88,14 @@
             />
           </li>
         </ul>
-        <a href="#development-section"><p id="scroll">&lt;SCROLL TO START&gt;</p></a>
+        <a href="#development-section"
+          ><p
+            id="scroll"
+            @click="scrollToClass('development-section')"
+          >
+            &lt;SCROLL TO START&gt;
+          </p></a
+        >
       </div>
     </div>
     <div class="hero-image"></div>
@@ -41,10 +105,7 @@
     </div>
   </div>
 
-  <div
-    class="maxwidth-container fullscreen-container development-section"
-    id="development-section"
-  >
+  <div class="maxwidth-container fullscreen-container development-section">
     <div class="development-info">
       <h4>BLOCKCHAIN DEVELOPMENT</h4>
       <p>We provide full cycle software development, from ideation and maintenance, with a primary focus on Web 3.0. We can deliver new products and assist you in the re-engineering and upgrading existing products or services base on your needs.</p>
@@ -96,7 +157,7 @@
   </div>
 
   <div class="contact-section">
-    <div class="contact-info maxwidth-container">
+    <div class="maxwidth-container contact-info">
       <h6>TAKE A ‘ONE SMALL STEP’</h6>
       <h3>info@moonstruck.com</h3>
       <div class="contact-link">
@@ -129,10 +190,26 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
+
 import DevelopmentCard from "@/components/DevelopmentCard.vue";
 import Services from "../components/Services.vue";
 import Typewriter from "../components/Typewriter.vue";
 import ProjectsCarousel from "@/components/ProjectsCarousel.vue";
+
+const menuActive = ref(false);
+
+const toggleMenu = () => {
+  menuActive.value = !menuActive.value;
+};
+
+const scrollToClass = (className) => {
+  const element = document.querySelector("." + className);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+  menuActive.value = false;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -143,6 +220,57 @@ import ProjectsCarousel from "@/components/ProjectsCarousel.vue";
 .maxwidth-container {
   max-width: 1440px;
   margin: 0px auto;
+}
+
+.navbar {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 32px;
+  max-width: 606px;
+
+  .menu-btn {
+    display: none;
+  }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .menu-text {
+      display: none;
+    }
+
+    li {
+      font-size: 16px;
+    }
+  }
+
+  .nav-item {
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    a {
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: normal;
+      font-family: "Space Mono", monospace;
+    }
+
+    &::after {
+      content: "*";
+      color: #fff;
+      margin: 0 8px;
+    }
+    &:last-child::after {
+      content: "";
+    }
+    &.active {
+      color: #fd5001;
+      font-weight: bold;
+    }
+  }
 }
 
 .hero-section {
@@ -242,6 +370,7 @@ import ProjectsCarousel from "@/components/ProjectsCarousel.vue";
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 
   .development-info {
     max-width: 456px;
@@ -359,11 +488,10 @@ import ProjectsCarousel from "@/components/ProjectsCarousel.vue";
         font-size: 16px;
       }
     }
-    .development-section {
-      display: none;
-      width: 600px;
-      right: -100px;
-    }
+  }
+
+  .development-section {
+    margin: 100px 0;
   }
 
   .contact-section {
@@ -383,6 +511,80 @@ import ProjectsCarousel from "@/components/ProjectsCarousel.vue";
 @media screen and (max-width: 480px) {
   .maxwidth-container {
     padding: 0 16px;
+  }
+
+  .nav-bar {
+    padding: 0;
+    width: 100%;
+    height: auto;
+    position: absolute;
+
+    .navbar {
+      width: 100%;
+      background-color: black;
+      margin: 0;
+
+      .menu-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        width: 72px;
+        height: 56px;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        p {
+          text-transform: uppercase;
+          font-size: 16px;
+          line-height: 24px;
+        }
+      }
+
+      .menu-btn.active {
+        display: none;
+      }
+
+      .nav-list {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        display: none;
+
+        .menu-text {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+
+          span {
+            font-size: 16px;
+            line-height: 24px;
+            color: #fff;
+          }
+        }
+      }
+      .nav-list.active {
+        display: flex;
+      }
+
+      .nav-item {
+        &::after {
+          display: none;
+        }
+      }
+    }
+
+    .navbar.active {
+      height: 400px;
+    }
   }
 
   .hero-section {
@@ -463,8 +665,6 @@ import ProjectsCarousel from "@/components/ProjectsCarousel.vue";
       justify-content: flex-start;
       .title {
         width: 100%;
-
-        margin-top: 100px;
         max-width: auto;
       }
       .info {

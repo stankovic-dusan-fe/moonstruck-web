@@ -34,9 +34,9 @@
       </div>
     </Slide>
 
-    <template #addons>
+    <!-- <template #addons>
       <Pagination />
-    </template>
+    </template> -->
   </Carousel>
 </template>
 
@@ -146,12 +146,8 @@ const settings = ref({
 });
 
 const breakpoints = ref({
-  0: {
-    itemsToShow: 1,
-  },
-
   480: {
-    itemsToShow: 1.5,
+    itemsToShow: 1,
   },
   960: {
     itemsToShow: 2,
@@ -185,7 +181,6 @@ const breakpoints = ref({
   .project-img {
     width: 100%;
     height: 52px;
-
     display: flex;
     justify-content: start;
     padding: 6px 0;
