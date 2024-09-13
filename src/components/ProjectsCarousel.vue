@@ -1,5 +1,5 @@
 <template>
-  <Carousel :breakpoints="breakpoints">
+  <Carousel :itemsToShow="itemsToShow">
     <Slide
       v-for="project in projects"
       :key="project"
@@ -33,16 +33,12 @@
         </div>
       </div>
     </Slide>
-
-    <!-- <template #addons>
-      <Pagination />
-    </template> -->
   </Carousel>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { Carousel, Slide, Navigation, Pagination } from "vue3-carousel";
+import { ref, onMounted, onBeforeUnmount, computed } from "vue";
+import { Carousel, Slide } from "vue3-carousel";
 
 import "vue3-carousel/dist/carousel.css";
 
@@ -140,113 +136,110 @@ const projects = ref([
   },
 ]);
 
-const settings = ref({
-  itemsToShow: 1,
-  snapAlign: "center",
+const screenWidth = ref(window.innerWidth);
+
+function updateScreenWidth() {
+  screenWidth.value = window.innerWidth;
+}
+
+const itemsToShow = computed(() => {
+  if (screenWidth.value > 480) {
+    return Math.floor((screenWidth.value / 456) * 10) / 10;
+  } else return 1.07;
 });
 
-const breakpoints = ref({
-  480: {
-    itemsToShow: 1,
-  },
-  960: {
-    itemsToShow: 2,
-  },
-
-  1440: {
-    itemsToShow: 3,
-  },
-
-  1920: {
-    itemsToShow: 4,
-  },
-
-  2400: {
-    itemsToShow: 5.5,
-  },
+onMounted(() => {
+  window.addEventListener("resize", updateScreenWidth);
 });
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateScreenWidth);
+});
+
+console.log(screenWidth.value);
 </script>
 
 <style scoped lang="scss">
-.carousel__item {
-  width: calc(100% - 24px);
-  max-width: 456px;
-  min-height: 400px;
-  background-color: white;
-  border-radius: 16px;
-  color: black;
-  padding: 24px;
-  text-align: left;
+.carousel {
+  cursor: grab;
 
-  .project-img {
-    width: 100%;
-    height: 52px;
-    display: flex;
-    justify-content: start;
-    padding: 6px 0;
-    margin-bottom: 24px;
-
-    img {
-      width: auto;
-      height: 100%;
-    }
-  }
-
-  .project-info {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .project-bio,
-  .project-scope,
-  .project-tech {
-    display: flex;
-    gap: 16px;
-
-    span {
-      display: block;
-      min-width: 80px;
-    }
-
-    p {
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: 20px;
-      line-height: 28px;
-      font-weight: normal;
-      color: #6a6a6a;
-    }
-  }
-}
-
-@media screen and (max-width: 480px) {
   .carousel__item {
-    width: calc(100% - 8px);
-    min-height: 500px;
+    width: calc(100% - 16px);
+    max-width: 456px;
+    min-height: 400px;
+    background-color: white;
+    border-radius: 16px;
+    color: black;
+    padding: 24px;
+    text-align: left;
+
+    .project-img {
+      width: 100%;
+      height: 52px;
+      display: flex;
+      justify-content: start;
+      padding: 6px 0;
+      margin-bottom: 24px;
+
+      img {
+        width: auto;
+        height: 100%;
+      }
+    }
+
+    .project-info {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
 
     .project-bio,
     .project-scope,
     .project-tech {
       display: flex;
-      flex-direction: column;
       gap: 16px;
 
-      span,
-      p {
-        font-size: 16px;
+      span {
+        display: block;
+        min-width: 80px;
       }
-    }
 
-    .project-img {
-      img {
-        width: auto;
-        height: 80%;
+      p {
+        font-family: "Space Grotesk", sans-serif;
+
+        font-size: 20px;
+        line-height: 28px;
+        font-weight: normal;
+        color: #6a6a6a;
       }
     }
   }
-  .carousel__pagination {
-    background-color: #fd5001;
+}
+
+@media screen and (max-width: 768px) {
+  .carousel {
+    .carousel__item {
+      width: calc(100% - 8px);
+      height: 520px;
+
+      .project-bio,
+      .project-scope,
+      .project-tech {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        span,
+        p {
+          font-size: 16px;
+        }
+      }
+
+      .project-img {
+        width: 100%;
+        height: 48px;
+      }
+    }
   }
 }
 </style>

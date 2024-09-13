@@ -9,7 +9,8 @@
         :class="{ active: menuActive }"
         @click="toggleMenu"
       >
-        <p>Menu</p>
+        <p v-if="!menuActive">Menu</p>
+        <p v-if="menuActive">X</p>
       </div>
       <ul
         class="nav-list"
@@ -20,19 +21,22 @@
           <span>...</span>
         </div>
         <li
-          class="nav-item active"
-          @click="scrollToClass('hero-section')"
+          class="nav-item"
+          :class="{ active: activeLink === 'home-section' }"
+          @click="scrollToClass('hom-section')"
         >
           START
         </li>
         <li
           class="nav-item"
+          :class="{ active: activeLink === 'development-section' }"
           @click="scrollToClass('development-section')"
         >
           TECHNOLOGY
         </li>
         <li
           class="nav-item"
+          :class="{ active: activeLink === 'services-section' }"
           @click="scrollToClass('services-section')"
         >
           WHAT WE DO
@@ -40,15 +44,16 @@
 
         <li
           class="nav-item"
+          :class="{ active: activeLink === 'projects-section' }"
           @click="scrollToClass('projects-section')"
         >
           PROJECTS
         </li>
-        <li class="nav-item">
-          <RouterLink to="/web25">WEB 2.5</RouterLink>
-        </li>
+
+        <li class="nav-item"><RouterLink to="/web2.5academy">WEB 2.5</RouterLink></li>
         <li
           class="nav-item"
+          :class="{ active: activeLink === 'contact-section' }"
           @click="scrollToClass('contact-section')"
         >
           CONTACT
@@ -88,14 +93,12 @@
             />
           </li>
         </ul>
-        <a href="#development-section"
-          ><p
-            id="scroll"
-            @click="scrollToClass('development-section')"
-          >
-            &lt;SCROLL TO START&gt;
-          </p></a
+        <p
+          id="scroll"
+          @click="scrollToClass('development-section')"
         >
+          &lt;SCROLL TO START&gt;
+        </p>
       </div>
     </div>
     <div class="hero-image"></div>
@@ -157,35 +160,7 @@
   </div>
 
   <div class="contact-section">
-    <div class="maxwidth-container contact-info">
-      <h6>TAKE A ‘ONE SMALL STEP’</h6>
-      <h3>info@moonstruck.com</h3>
-      <div class="contact-link">
-        <a
-          href="https://www.linkedin.com/company/moonstruck/"
-          target="_blank"
-          >LINKEDIN</a
-        >
-        <a
-          href="https://www.linkedin.com/company/moonstruck/"
-          target="_blank"
-          ><s>TWITTER</s> X</a
-        >
-      </div>
-      <div class="company-info">
-        <p>
-          Moonstruck d.o.o. <br />
-          Vojvode stepe 147, 11080 <br />Belgrade Serbia <br />
-          VAT: 107273050
-        </p>
-      </div>
-      <div class="contact-img">
-        <img
-          src="/images/contact-background.png"
-          alt="contact-background"
-        />
-      </div>
-    </div>
+    <Contact />
   </div>
 </template>
 
@@ -196,8 +171,10 @@ import DevelopmentCard from "@/components/DevelopmentCard.vue";
 import Services from "../components/Services.vue";
 import Typewriter from "../components/Typewriter.vue";
 import ProjectsCarousel from "@/components/ProjectsCarousel.vue";
+import Contact from "@/components/Contact.vue";
 
 const menuActive = ref(false);
+const activeLink = ref("home-section");
 
 const toggleMenu = () => {
   menuActive.value = !menuActive.value;
@@ -209,24 +186,15 @@ const scrollToClass = (className) => {
     element.scrollIntoView({ behavior: "smooth" });
   }
   menuActive.value = false;
+  activeLink.value = className;
 };
 </script>
 
 <style lang="scss" scoped>
-.fullscreen-container {
-  height: 100vh;
-}
-
-.maxwidth-container {
-  max-width: 1440px;
-  margin: 0px auto;
-}
-
 .navbar {
   display: flex;
   justify-content: flex-start;
   margin-top: 32px;
-  max-width: 606px;
 
   .menu-btn {
     display: none;
@@ -251,6 +219,9 @@ const scrollToClass = (className) => {
     color: #fff;
     cursor: pointer;
     position: relative;
+    display: inline-flex;
+    align-items: center;
+
     a {
       font-size: 16px;
       line-height: 24px;
@@ -263,9 +234,11 @@ const scrollToClass = (className) => {
       color: #fff;
       margin: 0 8px;
     }
+
     &:last-child::after {
-      content: "";
+      content: none;
     }
+
     &.active {
       color: #fd5001;
       font-weight: bold;
@@ -283,8 +256,8 @@ const scrollToClass = (className) => {
     min-height: 425px;
     width: auto;
     flex-direction: column;
-
     justify-content: flex-start;
+
     h2 {
       font-size: 120px;
     }
@@ -356,9 +329,9 @@ const scrollToClass = (className) => {
     background-position: center;
     background-repeat: no-repeat;
   }
+
   .hero-image-text {
     position: absolute;
-
     width: 50vw;
     background-color: black;
     right: 0;
@@ -399,19 +372,23 @@ const scrollToClass = (className) => {
 }
 
 .services-section {
+  padding-top: 100px;
+
   .services-info {
     display: flex;
     justify-content: flex-end;
+
     .title {
       max-width: 456px;
     }
+
     .info {
       margin-left: 144px;
       width: 50%;
-
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+
       p {
         font-size: 18px;
         color: #888888;
@@ -421,10 +398,11 @@ const scrollToClass = (className) => {
     }
   }
 }
-.projects-section {
-  .maxwidth-container {
-    margin-top: 224px;
 
+.projects-section {
+  padding-top: 100px;
+
+  .maxwidth-container {
     h3 {
       margin-bottom: 60px;
     }
@@ -435,55 +413,25 @@ const scrollToClass = (className) => {
   height: 610px;
   justify-content: start;
   align-items: start;
-  margin-top: 200px;
   position: relative;
-
-  .contact-info {
-    h3 {
-      text-transform: lowercase;
-      margin: 32px 0;
-    }
-  }
-
-  .contact-link {
-    display: flex;
-    gap: 32px;
-
-    a {
-      text-decoration: none;
-      color: white;
-    }
-  }
-  .company-info {
-    margin-top: 134px;
-
-    p {
-      color: #6a6a6a;
-      font-size: 20px;
-      font-weight: normal;
-    }
-  }
-  .contact-img {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-
-    img {
-      filter: contrast(110%);
-    }
-  }
+  padding-top: 200px;
 }
 
 @media screen and (max-width: 1440px) {
-  .maxwidth-container {
-    padding: 0 50px;
+  .navbar {
+    .nav-list {
+      li {
+        font-size: 16px;
+      }
+    }
   }
+
   .hero-section {
     .hero-image-text {
       h6 {
         font-size: 24px;
       }
+
       p {
         font-size: 16px;
       }
@@ -493,26 +441,9 @@ const scrollToClass = (className) => {
   .development-section {
     margin: 100px 0;
   }
-
-  .contact-section {
-    .contact-img {
-      height: 610px;
-      display: flex;
-      justify-content: end;
-      align-items: end;
-      z-index: -1;
-      img {
-        width: 80%;
-      }
-    }
-  }
 }
 
-@media screen and (max-width: 480px) {
-  .maxwidth-container {
-    padding: 0 16px;
-  }
-
+@media screen and (max-width: 1216px) {
   .nav-bar {
     padding: 0;
     width: 100%;
@@ -538,20 +469,15 @@ const scrollToClass = (className) => {
         cursor: pointer;
 
         p {
-          text-transform: uppercase;
           font-size: 16px;
-          line-height: 24px;
+          text-transform: uppercase;
         }
-      }
-
-      .menu-btn.active {
-        display: none;
       }
 
       .nav-list {
         margin: 0 auto;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
         gap: 16px;
@@ -563,6 +489,7 @@ const scrollToClass = (className) => {
           justify-content: center;
           align-items: center;
           gap: 10px;
+          display: none;
 
           span {
             font-size: 16px;
@@ -583,6 +510,83 @@ const scrollToClass = (className) => {
     }
 
     .navbar.active {
+      height: 56px;
+    }
+  }
+
+  .hero-section {
+    .hero-text {
+      h2 {
+        font-size: 100px;
+      }
+    }
+    .hero-image-text {
+      width: calc(100% - 16px);
+
+      p {
+        font-size: 14px; /// PROVERI DA LI OVO IMA SMISLA NA KRAJU
+      }
+    }
+  }
+
+  .development-section {
+    height: auto;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .development-info {
+      max-width: 100%;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+
+      p {
+        margin: 32px 0;
+      }
+    }
+    .development-cards {
+      display: flex;
+
+      justify-content: center;
+      width: 100%;
+      margin-top: 32px;
+    }
+  }
+
+  .services-section {
+    padding-top: 0;
+    .services-info {
+      flex-direction: column;
+      .title {
+        max-width: 100%;
+      }
+      .info {
+        margin-left: 0;
+        margin-top: 32px;
+
+        width: 100%;
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav-bar {
+    .navbar {
+      .nav-list {
+        flex-direction: column;
+
+        .menu-text {
+          display: flex;
+        }
+      }
+    }
+
+    .navbar.active {
       height: 400px;
     }
   }
@@ -596,11 +600,6 @@ const scrollToClass = (className) => {
       min-height: 50vh;
       margin-top: 24px;
       order: 2;
-
-      p {
-        font-size: 16px;
-        line-height: 24px;
-      }
 
       h2 {
         font-size: 48px;
@@ -621,14 +620,7 @@ const scrollToClass = (className) => {
       order: 3;
 
       h6 {
-        font-size: 28px;
-        line-height: 32px;
         margin-bottom: 20px;
-      }
-
-      p {
-        font-size: 16px;
-        line-height: 24px;
       }
     }
   }
@@ -642,15 +634,8 @@ const scrollToClass = (className) => {
     .development-info {
       width: 100%;
 
-      h4 {
-        font-size: 42px;
-        line-height: 48px;
-      }
-
       p {
         margin: 32px 0;
-        font-size: 16;
-        line-height: 24px;
       }
     }
 
@@ -672,11 +657,6 @@ const scrollToClass = (className) => {
         margin-top: 24px;
         width: 100%;
         gap: 24px;
-
-        p {
-          font-size: 16px;
-          line-height: 24px;
-        }
       }
     }
   }
@@ -697,39 +677,10 @@ const scrollToClass = (className) => {
     width: auto;
     height: 624px;
     margin-top: 100px;
+    padding: 0;
 
-    .contact-info {
-      h6 {
-        width: 100%;
-        font-size: 24px;
-      }
-
-      h3 {
-        width: auto;
-        font-size: 28px;
-        margin: 16px 0;
-      }
-    }
-    .contact-link {
-      width: 100%;
-      gap: 64px;
-      a {
-        font-size: 24px;
-      }
-    }
-    .company-info {
-      margin-top: 32px;
-
-      p {
-        font-size: 16px;
-        line-height: 20px;
-      }
-    }
-    .contact-img {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
+    h3 {
+      font-size: 64px;
     }
   }
 }

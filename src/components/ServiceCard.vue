@@ -28,7 +28,7 @@ const props = defineProps(["title", "count", "desc", "icon"]);
   margin-top: 224px;
 
   .service-info {
-    max-width: 576px;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
@@ -72,7 +72,42 @@ const props = defineProps(["title", "count", "desc", "icon"]);
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1216px) {
+  .service-card {
+    margin-top: 160px;
+
+    .service-info {
+      .service-title {
+        width: 100%;
+        justify-content: space-between;
+        align-items: flex-end;
+        h3 {
+        }
+
+        h1 {
+          width: 50%;
+          font-size: 160px;
+        }
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+
+    .service-icon {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+
+      img {
+        width: 90%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
   .service-card {
     width: 100%;
     display: flex;

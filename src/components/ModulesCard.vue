@@ -1,21 +1,17 @@
 <template>
-  <div class="development-card">
-    <img
-      :src="`/images/icons/${icon}.svg`"
-      alt="protocol-icon"
-    />
+  <div class="modules-card">
     <h6>{{ title }}</h6>
     <p>{{ desc }}</p>
   </div>
 </template>
 
 <script setup>
-const props = defineProps(["icon", "title", "desc"]);
+const props = defineProps(["title", "desc"]);
 </script>
 
 <style lang="scss" scoped>
-.development-card {
-  max-width: 336px;
+.modules-card {
+  max-width: 454px;
   padding: 24px;
   height: fit-content;
   box-sizing: border-box;
@@ -37,16 +33,9 @@ const props = defineProps(["icon", "title", "desc"]);
   }
 }
 
-@media screen and (max-width: 1216px) {
-  .development-card {
-    width: 100%;
-  }
-}
-
 @media screen and (max-width: 768px) {
-  .development-card {
-    max-width: 100vw;
-    width: 100%;
+  .modules-card {
+    max-width: 100%;
 
     h6 {
       font-size: 24px;
