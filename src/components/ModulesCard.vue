@@ -33,6 +33,13 @@ const props = defineProps(["title", "desc"]);
   }
 }
 
+@media screen and (max-width: 1216px) {
+  .modules-card {
+    height: auto;
+    justify-content: flex-start;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .modules-card {
     max-width: 100%;

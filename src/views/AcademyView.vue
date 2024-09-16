@@ -67,17 +67,17 @@
       </div>
     </div>
   </div>
-  <div class="maxwidth-container fullscreen-container gallery-section">
-    <div class="gallery-title">
+  <div class="maxwidth-container fullscreen-container media-section">
+    <div class="media-title">
       <h3>READY TO JOIN OUR NEXT ITERATION?</h3>
     </div>
-    <div class="gallery-image">
+    <div class="media-image">
       <img
         src="/images/team-photo.png"
         alt="team-photo"
       />
     </div>
-    <div class="info-card">
+    <div class="media-info">
       <p>We're gearing up to launch a brand new phase, and we'd love to keep you in the loop! To stay updated on the exact timing of our upcoming cycle, drop us an email at <a href="mailto:office@moonstruck.io">office@moonstruck.io</a> or follow us on social media for real-time updates and sneak peeks..</p>
     </div>
   </div>
@@ -237,15 +237,42 @@ import ModulesCard from "@/components/ModulesCard.vue";
   }
 }
 
-.gallery-section {
-  margin-top: 240px;
-  margin-bottom: 240px;
+.media-section {
   height: auto;
+  margin-top: 240px;
   display: flex;
-  flex-direction: row;
+  position: relative;
+  gap: 24px;
 
-  .info-card {
-    display: none;
+  .media-title {
+    max-width: 456px;
+  }
+
+  .media-image {
+    width: 100vw;
+    img {
+      width: 100%;
+    }
+  }
+
+  .media-info {
+    position: absolute;
+    max-width: 790px;
+    top: 70%;
+    background-color: rgba(37, 31, 33, 0.5);
+    padding: 24px;
+    border-radius: 24px;
+
+    p,
+    a {
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #fd5001;
+    }
   }
 }
 
@@ -257,7 +284,21 @@ import ModulesCard from "@/components/ModulesCard.vue";
   position: relative;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1440px) {
+  .media-section {
+    .media-title {
+      h3 {
+        font-size: 80px;
+        line-height: 64px;
+      }
+    }
+    .media-info {
+      top: 60%;
+    }
+  }
+}
+
+@media screen and (max-width: 1216px) {
   .navbar {
     position: absolute;
     top: 0;
@@ -301,6 +342,60 @@ import ModulesCard from "@/components/ModulesCard.vue";
   }
 
   .hero-section {
+    .hero-text {
+      h2 {
+        font-size: 90px;
+        line-height: 100px;
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+  }
+
+  .modules-section {
+    .modules-info {
+      flex-direction: column;
+      align-items: flex-start;
+      .title {
+        max-width: 100%;
+        h3 {
+          text-wrap: nowrap;
+        }
+      }
+
+      .info {
+        width: 100%;
+        margin: 32px 0;
+      }
+    }
+
+    .modules {
+      display: flex;
+      flex-direction: column;
+      margin-top: 0;
+
+      .modules-col {
+        display: flex;
+        flex-direction: row;
+      }
+    }
+  }
+  .media-section {
+    .media-info {
+      max-width: 50%;
+      p {
+        font-size: 14px;
+        line-height: 24px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero-section {
     flex-direction: column;
     height: auto;
 
@@ -339,56 +434,6 @@ import ModulesCard from "@/components/ModulesCard.vue";
     }
   }
 
-  .gallery-section {
-    height: auto;
-    flex-direction: column;
-
-    margin: 66px 0;
-    padding: 0 16px;
-
-    .gallery-title {
-      padding: 0 16px;
-      order: 2;
-      margin-bottom: 32px;
-      margin-top: 44px;
-      text-wrap: wrap;
-    }
-
-    .gallery-image {
-      width: calc(100% + 32px);
-      margin: 0 -16px;
-
-      img {
-        width: 100%;
-      }
-    }
-
-    .info-card {
-      max-width: 454px;
-      padding: 24px;
-      height: fit-content;
-      box-sizing: border-box;
-      background-color: rgba(37, 31, 33, 0.5);
-      border-radius: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: flex-start;
-      order: 3;
-
-      p {
-        font-size: 16px;
-        line-height: 24px;
-
-        a {
-          color: #fd5001;
-          font-size: 16px;
-          line-height: 24px;
-        }
-      }
-    }
-  }
-
   .modules-section {
     height: auto;
 
@@ -413,8 +458,39 @@ import ModulesCard from "@/components/ModulesCard.vue";
     }
 
     .modules {
+      display: grid;
       grid-template-columns: repeat(1, 1fr);
       margin: 0;
+
+      .modules-col {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .media-section {
+    flex-direction: column;
+    height: auto;
+    margin-top: 70px;
+    .media-title {
+      width: 80%;
+      text-wrap: wrap;
+    }
+
+    .media-image {
+      width: calc(100% + 32px);
+      margin: 0 -16px;
+      order: -1;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .media-info {
+      position: relative;
+      bottom: 0;
     }
   }
 

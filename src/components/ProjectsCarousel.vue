@@ -182,8 +182,9 @@ console.log(screenWidth.value);
       margin-bottom: 24px;
 
       img {
-        width: auto;
-        height: 100%;
+        width: 50%;
+        object-fit: contain;
+        object-position: 0%;
       }
     }
 
